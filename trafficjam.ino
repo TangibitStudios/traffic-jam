@@ -50,6 +50,9 @@ Adafruit_NeoPixel ring = Adafruit_NeoPixel(PIXEL_COUNT, PIXEL_PIN, PIXEL_TYPE);
 //----------------------------------------------------------
 bool isCommuteTime()
 {
+    // make sure time is local (in case cloud connection drops)
+    Time.zone(-4);  // eastern
+
     bool isTime = false;
     int clkHour = Time.hour();
     bool commuteAM = (clkHour >= COMMUTE_AM_START) && (clkHour <= COMMUTE_AM_END);
@@ -361,10 +364,6 @@ void loop()
     {
         // reset timestamp
         lastCheck=millis();
-
-        // make sure time is local (in case cloud connection drops)
-        Time.zone(-4);  // eastern
-        Time.setTime(Time.local());
 
         // time to check on commute
         if (isCommuteTime())
