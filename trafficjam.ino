@@ -319,6 +319,8 @@ void setup()
     appMode = MODE_RUN;
     //appMode = MODE_DEBUG;
 
+    // Set time zone
+    Time.zone(-4);  // Eastern
 
     // Initializations
     if (appMode==MODE_DEBUG)
@@ -359,6 +361,10 @@ void loop()
     {
         // reset timestamp
         lastCheck=millis();
+
+        // make sure time is local (in case cloud connection drops)
+        Time.zone(-4);  // eastern
+        Time.setTime(Time.local());
 
         // time to check on commute
         if (isCommuteTime())
