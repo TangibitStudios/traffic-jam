@@ -7,7 +7,7 @@ include('libRequests/Requests.php');
 Requests::register_autoloader();
 
 // Now let's make a request!
-$request = Requests::get('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=YOUR_HOME_ADDRESS&destinations=YOUR_WORK_ADDRESS&key=YOUR_API_KEY');
+$request = Requests::get('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&mode=driving&departure_time=now&origins=YOUR_HOME_ADDRESS&destinations=YOUR_WORK_ADDRESS&key=YOUR_API_KEY');
 
 // Check what we received
 //var_dump($request);
@@ -18,6 +18,6 @@ $input = json_decode($request->body, TRUE);
 //var_dump($input["rows"][0]["elements"][0]["duration"]["value"]);
 
 // pull out the commute duration in seconds
-echo $input["rows"][0]["elements"][0]["duration"]["value"];
+echo $input["rows"][0]["elements"][0]["duration_in_traffic"]["value"];
 
 ?>
